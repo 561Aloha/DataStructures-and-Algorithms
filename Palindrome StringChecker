@@ -1,0 +1,42 @@
+"""Assignment Four Dianna Dimambro, Professor Taebi 
+
+
+Problem 1: Define a recursive algorthim to check if a particular string is a palindrome. Show what the recursive trace would look like
+"""
+s = str(input("Give me a word: "))
+def is_palindrome(s):
+    #Base cases that are 0 or 1 are palindromes
+    if len(s) < 2:    
+        return True
+    
+    # check first and last character, then recurse on the middle substring
+    if s[0] == s[-1]:
+      print (s[0])
+      return is_palindrome(s[1:-1])  #This is a recursion call
+    else:
+        return False
+
+print (is_palindrome(s))
+
+#Recursive Trace
+"""
+We first check if the length of the palndrome is <2 (len(s) <2 since that is a edge case.
+With the if statement, this will check to make sure the first and last digit matches each other.
+if it doesn't have a match, it returns false. If the string is not less than 2/true yet, 
+it will loop again with the -1 stepper (this is the recursive call) until it gets 
+to that base case"""
+
+"""
+is_palindrome("racecar")
+-> is_palindrome("aceca")          # first and last 'r' match, so remove them
+  -> is_palindrome("cec")          # first and last 'a' match, so remove them
+    -> is_palindrome("e")          # only one character left, so it is a palindrome
+      -> returns True              #for this problem there was 4 recursion calls
+    <- returns True
+  <- returns True
+<- returns True
+
+->
+
+
+"""
