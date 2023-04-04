@@ -1,0 +1,106 @@
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Problem Two: Define a 2D matrix that can multiple and add another Matrix
+
+
+class Matrix:
+    #Constructing the Matrix, rows x cols making it 2D
+    def __init__(self, row, cols):
+        #Initalzing rows x cols matrix of zeros. 
+        self._data = [[0] * cols for i in range(row)]
+        self.row = row
+        self.cols = cols
+
+    def __str__(self):
+        #Produce string representation of matrix.
+        s = ''
+        for i in range(self.row):
+            s += '[' + ', '.join(str(self._data[i][j]) for j in range(self.cols)) + ']\n'
+        return s
+
+    def __getitem__(self, idx):
+        #Get element at index (i,j) of matrix.
+        i, j = idx
+        return self._data[i][j]
+
+    def __setitem__(self, idx, val):
+        '''Set element at index (i,j) of matrix to given value.'''
+        i, j = idx
+        self._data[i][j] = val
+
+    def __add__(self, other):
+        '''Return sum of two matrices.'''
+        if self.row != other.row or self.row != other.row:
+            raise ValueError('dimensions must agree')
+        result = Matrix(self.row, self.row)
+        for i in range(self.row):
+            for j in range(self.row):
+                result[i, j] = self[i, j] + other[i, j]
+        return result
+
+    def __mul__(self, other):
+        '''Return multiplication of two matrices.'''
+        if self.row != other.row:
+            raise ValueError('dimensions must agree')
+        result = Matrix(self.row, other.row)
+        for i in range(self.row):
+            for j in range(other.row):
+                for k in range(self.row):
+                    result[i, j] += self[i, k] * other[k, j]
+        return result
+
+
+
+if __name__ == '__main__':
+    # Created two matrices
+    A = Matrix(2, 2)
+    B = Matrix(2, 2)
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~My Test Cases
+
+# Matrix A
+A[0, 0] = 1
+A[0, 1] = 2
+A[1, 0] = 3
+A[1, 1] = 4
+
+#Matrix B
+B[0, 0] = 5
+B[0, 1] = 6
+B[1, 0] = 7
+B[1, 1] = 1
+
+# Print matrices
+print('Test Case:')
+print(A)
+print('Test Case 2:')
+print(B)
+
+# Matrix addition
+Add = A + B
+print("Matrix Addition Answer:")
+print(Add)
+
+# Matrix multiplication
+Multiply = A * B
+print("Matrix Multiplication Answer: ")
+print(Multiply)
+
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Test Case Answers
+
+Matrix A Test Case :
+[0, 1]
+[1, 2]
+
+Matrix B Test Case 2:
+[0, -1]
+[1, 0]
+
+Matrix Addition Answer:
+[0, 0]
+[2, 2]
+
+Matrix Multiplication Answer: 
+[1, 0]
+[2, -1]
+
+"""
